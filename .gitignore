@@ -1,0 +1,57 @@
+# ----------------------------
+# Node modules (both frontend + backend)
+# ----------------------------
+node_modules/
+Frontend/node_modules/
+Backend/node_modules/
+
+# ----------------------------
+# Environment variables
+# ----------------------------
+.env
+.env.*
+Frontend/.env
+Backend/.env
+!.env.example
+
+# ----------------------------
+# Build files
+# ----------------------------
+Frontend/build/
+Frontend/dist/
+Backend/dist/
+
+# React / Next specific
+Frontend/.next/
+Frontend    /out/
+
+# ----------------------------
+# Logs
+# ----------------------------
+logs
+*.log
+
+# ----------------------------
+# OS files
+# ----------------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------------
+# IDE / Editor
+# ----------------------------
+.vscode/
+.idea/
+
+# ----------------------------
+# Coverage
+# ----------------------------
+coverage/
+Frontend/coverage/
+Backend/coverage/
+
+# ----------------------------
+# Cache / temp
+# ----------------------------
+.cache
+.tmp
