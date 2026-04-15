@@ -16,13 +16,15 @@ export function useReplies(comment) {
     setLoadingMore(true);
     try {
       const nextPage = page + 1;
-      const data = await fetchReplies(comment._id, nextPage, 5);
+      const data = await fetchReplies(comment._id, nextPage, 2);
       setReplies(prev => [...prev, ...data]);
       setPage(nextPage);
-      setHasMore(data.length === 5);
+      const totalLoaded = (nextPage-1) * 2+data.length;
+      setHasMore(totalLoaded < replyCount);
     } finally {
       setLoadingMore(false);
     }
+
   };
 
   const addReply = async ({ userName, content, replyTo, replyToUserName }) => {

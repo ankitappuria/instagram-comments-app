@@ -69,61 +69,81 @@ const getCommentsPaginated = async ({ postId, page = 1, limit = 10 }) => {
   const skip = (page - 1) * limit;
 
   const pipeline = [
-    {
-      $match: {
-        postId,
-        parentId: null,
-        isDeleted: false
-      }
-    },
-
-    { $sort: { createdAt: -1 } },
-    { $skip: skip },
-    { $limit: limit },
-
-    // Preview first 2 replies
-    {
-      $lookup: {
-        from: 'comments',
-        let: { commentId: '$_id' },
-        pipeline: [
-          {
-            $match: {
-              $expr: { $eq: ['$parentId', '$$commentId'] },
-              isDeleted: false
-            }
-          },
-          { $sort: { createdAt: 1 } },
-          { $limit: 2 },
-          {
-            $project: {
-              _id: 1,
-              userName: 1,
-              content: 1,
-              createdAt: 1,
-              replyToUserName: 1
-            }
-          }
-        ],
-        as: 'repliesPreview'
-      }
-    },
-
-    {
-      $addFields: {
-        // replyCount already stored on document — no extra lookup needed
-        hasMoreReplies: { $gt: ['$replyCount', 2] }
-      }
-    },
-
-    {
-      $project: {
-        __v: 0,
-        postId: 0,
-        parentId: 0
-      }
+  {
+    $match: {
+      postId,
+      parentId: null,
+      isDeleted: false
     }
-  ];
+  },
+
+  // ✅ Facet splits into two parallel pipelines
+  {
+    $facet: {
+      // Branch 1: paginated comments
+      comments: [
+        { $sort: { createdAt: -1 } },
+        { $skip: skip },
+        { $limit: limit },
+
+        // Preview first 2 replies
+        {
+          $lookup: {
+            from: 'comments',
+            let: { commentId: '$_id' },
+            pipeline: [
+              {
+                $match: {
+                  $expr: { $eq: ['$parentId', '$$commentId'] },
+                  isDeleted: false
+                }
+              },
+              { $sort: { createdAt: 1 } },
+              { $limit: 2 },
+              {
+                $project: {
+                  _id: 1,
+                  userName: 1,
+                  content: 1,
+                  createdAt: 1,
+                  replyToUserName: 1
+                }
+              }
+            ],
+            as: 'repliesPreview'
+          }
+        },
+
+        {
+          $addFields: {
+            hasMoreReplies: { $gt: ['$replyCount', 2] }
+          }
+        },
+
+        {
+          $project: {
+            __v: 0,
+            postId: 0,
+            parentId: 0
+          }
+        }
+      ],
+
+      // Branch 2: total count (no skip/limit/lookup — fast)
+      totalCount: [
+        { $count: 'count' }
+      ]
+    }
+  },
+
+  // ✅ Flatten the output into a clean shape
+  {
+    $project: {
+      comments: 1,
+      totalCount: { $ifNull: [{ $arrayElemAt: ['$totalCount.count', 0] }, 0] }
+    }
+  }
+];
 
   return await Comment.aggregate(pipeline);
 };

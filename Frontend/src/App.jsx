@@ -12,7 +12,7 @@ const POST_ID = "post_123";
 export default function App() {
   const [currentUser, setCurrentUser] = useState("You");
   const [showModal, setShowModal] = useState(false);
-  const { comments, loading, loadingMore, hasMore, loadMore, addComment } = useComments(POST_ID);
+  const { comments=[], loading, loadingMore, hasMore, loadMore, addComment } = useComments(POST_ID);
 
   const handlePost = async (content) => {
     await addComment(currentUser, content);
@@ -20,7 +20,7 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      
 
       {showModal && (
         <UserNameModal

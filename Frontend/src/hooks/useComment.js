@@ -13,8 +13,11 @@ export function useComments(postId) {
     try {
       if (p === 1) setLoading(true);
       const data = await fetchCommentsPaginated(postId, p, 2);
-      setComments(prev => append ? [...prev, ...data] : data);
-      setHasMore(data.length === 2);
+      const commentsNew = data[0]?.comments;
+      setComments(prev => append ? [...prev, ...commentsNew] : commentsNew);
+      const totalComments = data[0]?.totalCount || 0;
+      console.log("Total comments:", totalComments, "Loaded:", (p-1)*2 + commentsNew.length);
+      setHasMore(totalComments > (p * 2));
       setPage(p);
     } catch (err) {
       setError(err.message);
@@ -32,7 +35,7 @@ export function useComments(postId) {
   };
 
   const addComment = async (userName, content) => {
-    const newComment = await postComment({ postId, userName, content });
+    await postComment({ postId, userName, content });
     //setComments(prev => [{ ...newComment, repliesPreview: [], replyCount: 0, hasMoreReplies: false }, ...prev]);
   };
 
