@@ -2,7 +2,7 @@ import { useState } from "react";
 import ReplyItem from "./ReplyItem";
 import CommentInput from "./CommentInput";
 import { useReplies } from "../hooks/useReplies";
-import "../styles/components.css";
+import "../../../styles/components.css";
 
 export default function ReplyList({ comment, currentUser }) {
   const { replies, expanded, loadingMore, hasMore, replyCount, expand, collapse, loadMore, addReply } = useReplies(comment);

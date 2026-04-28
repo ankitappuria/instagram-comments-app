@@ -1,5 +1,5 @@
-import { getAvatarColor } from "../utils/helper";
-import "../styles/components.css";
+import { getAvatarColor } from "./avatar_utils.js";
+import "../../../styles/components.css";
 
 export default function Avatar({ name, size = 36 }) {
   const bg = getAvatarColor(name);

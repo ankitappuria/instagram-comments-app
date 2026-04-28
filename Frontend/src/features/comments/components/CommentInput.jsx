@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import "../styles/components.css";
+import "../../../styles/components.css";
 
 export default function CommentInput({ onSubmit, onCancel, replyToUserName, placeholder }) {
   const [text, setText] = useState(replyToUserName ? `@${replyToUserName} ` : "");

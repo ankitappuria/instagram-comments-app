@@ -1,5 +1,5 @@
 import CommentItem from "./CommentItem";
-import "../styles/components.css";
+import "../../../styles/components.css";
 
 function Skeleton() {
   return (

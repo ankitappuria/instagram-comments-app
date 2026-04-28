@@ -1,7 +1,7 @@
-import Avatar from "./Avatar";
+import Avatar from "../../../shared/components/Avatar/Avatar";
 import ReplyList from "./ReplyList";
-import { timeAgo } from "../utils/helper";
-import "../styles/components.css";
+import { timeAgo } from "../../../shared/utils/time";
+import "../../../styles/components.css";
 
 export default function CommentItem({ comment, currentUser }) {
   return (

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import PostCard from "./components/PostCard";
-import CommentList from "./components/CommentList";
-import CommentInput from "./components/CommentInput";
-import UserNameModal from "./components/UserModal";
-import Avatar from "./components/Avatar";
-import { useComments } from "./hooks/useComment";
+import PostCard from "./features/post/components/PostCard";
+import CommentList from "./features/comments/components/CommentList";
+import CommentInput from "./features/comments/components/CommentInput";
+import UserNameModal from "./features/comments/components/UserModal";
+import Avatar from "./shared/components/Avatar/Avatar";
+import { useComments } from "./features/comments/hooks/useComment";
 import "./styles/components.css";
 
 const POST_ID = "post_123";

@@ -1,5 +1,5 @@
-import Avatar from "./Avatar";
-import "../styles/components.css";
+import Avatar from "../../../shared/components/Avatar/Avatar";
+import "../../../styles/components.css";
 
 const POST = {
   userName: "travel.diaries",

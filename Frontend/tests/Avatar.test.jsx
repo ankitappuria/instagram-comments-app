@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import Avatar from "../src/components/Avatar";
+import Avatar from "../src/shared/components/Avatar/Avatar";
 
 // ✅ mock helper
-vi.mock("../src/utils/helper", () => ({
+vi.mock("../src/shared/components/Avatar/avatar_utils.js", () => ({
   getAvatarColor: vi.fn(() => "red")
 }));
 
@@ -44,7 +44,7 @@ describe("Avatar", () => {
   });
 
   it("calls getAvatarColor with name", async () => {
-    const { getAvatarColor } = await import("../src/utils/helper");
+    const { getAvatarColor } = await import("../src/shared/components/Avatar/avatar_utils.js");
 
     render(<Avatar name="john" />);
     expect(getAvatarColor).toHaveBeenCalledWith("john");

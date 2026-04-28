@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/components.css";
+import "../../../styles/components.css";
 
 export default function UserNameModal({ currentUser, onSave, onClose }) {
   const [input, setInput] = useState(currentUser);

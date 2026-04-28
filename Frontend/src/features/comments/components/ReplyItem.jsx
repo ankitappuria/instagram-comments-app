@@ -1,6 +1,7 @@
-import Avatar from "./Avatar";
-import { timeAgo, stripMention } from "../utils/helper";
-import "../styles/components.css";
+import Avatar from "../../../shared/components/Avatar/Avatar";
+import { timeAgo } from "../../../shared/utils/time";
+import {  stripMention } from "../utils/comment.util";
+import "../../../styles/components.css";
 
 export default function ReplyItem({ reply, onReply }) {
   return (

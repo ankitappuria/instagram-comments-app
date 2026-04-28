@@ -1,21 +1,17 @@
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react, { reactCompilerPreset } from '@vitejs/plugin-react'
+import babel from '@rolldown/plugin-babel'
 
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  test: {
-    globals: true,                    // Enables 'describe', 'it', 'expect' globally
-    environment: 'jsdom',             // Default to jsdom
-    setupFiles: './src/setupTests.js', // Points to your existing CRA setup file
+  plugins: [
+    react(),
+    babel({ presets: [reactCompilerPreset()] }),
     
-    // Coverage configuration
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'src/setupTests.js',
-      ]
-    }
+  ],
+  test: {
+    // 👋 add the line below to add jsdom to vite
+    environment: 'jsdom',
+    setupFiles: './tests/setup.js'
   }
-});
+})
