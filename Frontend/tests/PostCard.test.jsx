@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import PostCard from "../src/components/PostCard";
+import PostCard from "../src/features/post/components/PostCard.jsx";
 
 // ✅ Mock Avatar (isolate this component)
-vi.mock("../src/components/Avatar", () => ({
+vi.mock("../src/shared/components/Avatar/Avatar", () => ({
   default: ({ name }) => <div data-testid="avatar">{name}</div>,
 }));
 

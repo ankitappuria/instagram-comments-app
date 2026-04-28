@@ -1,12 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
-import CommentInput from "../src/components/CommentInput";
+import CommentInput from "../src/features/comments/components/CommentInput";
 
 describe("CommentInput", () => {
   // -----------------------------
   // 1. Basic rendering behavior
   // -----------------------------
+  
   it("renders with default placeholder", () => {
     render(<CommentInput onSubmit={() => {}} />);
     expect(screen.getByPlaceholderText("Add a comment...")).toBeInTheDocument();

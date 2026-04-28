@@ -1,13 +1,13 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
-import ReplyList from "../src/components/ReplyList.jsx";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import ReplyList from "../src/features/comments/components/ReplyList";
 
 // ✅ mock children
-vi.mock("../src/components/ReplyItem", () => ({
+vi.mock("../src/features/comments/components/ReplyItem", () => ({
   default: ({ reply }) => <div data-testid="reply-item">{reply._id}</div>
 }));
 
-vi.mock("../src/components/CommentInput", () => ({
+vi.mock("../src/features/comments/components/CommentInput", () => ({
   default: ({ onSubmit }) => (
     <button data-testid="comment-input" onClick={() => onSubmit("test reply")}>
       Submit Reply
@@ -17,7 +17,7 @@ vi.mock("../src/components/CommentInput", () => ({
 
 // ✅ mock hook
 const mockHook = vi.fn();
-vi.mock("../src/hooks/useReplies", () => ({
+vi.mock("../src/features/comments/hooks/useReplies", () => ({
   useReplies: (...args) => mockHook(...args)
 }));
 

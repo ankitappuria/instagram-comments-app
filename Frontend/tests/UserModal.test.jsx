@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
-import UserNameModal from "../src/components/UserModal";
+import UserNameModal from "../src/features/comments/components/UserModal";
 
 describe("UserNameModal", () => {
   const setup = (props = {}) => {

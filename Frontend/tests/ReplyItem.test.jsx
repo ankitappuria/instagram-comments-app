@@ -1,16 +1,19 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import ReplyItem from "../src/components/ReplyItem";
+import ReplyItem from "../src/features/comments/components/ReplyItem.jsx";
 
 // ✅ mock Avatar
-vi.mock("../src/components/Avatar", () => ({
+vi.mock("../src/shared/components/Avatar/Avatar", () => ({
   default: ({ name }) => <div data-testid="avatar">{name}</div>,
 }));
 
 // ✅ mock helpers
-vi.mock("../src/utils/helper", () => ({
+vi.mock("../src/shared/utils/time", () => ({
   timeAgo: vi.fn(() => "1 hour ago"),
-  stripMention: vi.fn((content) => content.replace(/@\w+\s?/, "")),
+}));
+
+vi.mock("../src/features/comments/utils/comment.util", () => ({
+  stripMention: vi.fn((content) => content.replace(/@\w+\s?/, ""))
 }));
 
 describe("ReplyItem", () => {
@@ -68,7 +71,7 @@ describe("ReplyItem", () => {
   });
 
   it("calls stripMention with correct arguments", async () => {
-    const { stripMention } = await import("../src/utils/helper");
+    const { stripMention } = await import("../src/features/comments/utils/comment.util");
 
     render(<ReplyItem reply={baseReply} onReply={() => {}} />);
 

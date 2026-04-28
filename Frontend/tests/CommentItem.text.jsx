@@ -1,20 +1,21 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import CommentItem from "../src/components/CommentItem.jsx";
+import CommentItem from "../src/features/comments/components/CommentItem";
 
 // ✅ Mock child components
-vi.mock("../src/components/Avatar.jsx", () => ({
+vi.mock("../src/shared/components/Avatar/Avatar", () => ({
   default: ({ name }) => <div data-testid="avatar">{name}</div>
 }));
 
-vi.mock("../src/components/ReplyList.jsx", () => ({
+vi.mock("../src/features/comments/components/ReplyList.jsx", () => ({
   default: ({ comment }) => (
     <div data-testid="reply-list">Replies for {comment._id}</div>
   )
 }));
 
+
 // ✅ Mock helper
-vi.mock("../src/utils/helper", () => ({
+vi.mock("../src/shared/utils/time", () => ({
   timeAgo: vi.fn(() => "2 hours ago")
 }));
 

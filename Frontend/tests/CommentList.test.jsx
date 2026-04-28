@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import CommentList from "../src/components/CommentList";
+import CommentList from "../src/features/comments/components/CommentList";
 
 // Mock child component
-vi.mock("../src/components/CommentItem", () => ({
+vi.mock("../src/features/comments/components/CommentItem", () => ({
   default: ({ comment }) => <div data-testid="comment-item">{comment.text}</div>
 }));
 
